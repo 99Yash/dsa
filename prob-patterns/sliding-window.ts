@@ -30,10 +30,10 @@
 // }
 
 function maxSubarraySum(arr: Array<number>, num: number) {
+  if (arr.length < num) return null;
   let initialSum = 0;
   let tempSum = 0;
 
-  if (arr.length < num) return null;
   for (let i = 0; i < num; i++) {
     initialSum += arr[i];
   }
