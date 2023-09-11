@@ -131,19 +131,19 @@
 //   }
 // }
 
-console.log(
-  nestedEvenSum({
-    outer: 2,
-    obj: {
-      inner: 2,
-      otherObj: {
-        superInner: 2,
-        notANumber: true,
-        alsoNotANumber: 'yup',
-      },
-    },
-  })
-);
+// console.log(
+//   nestedEvenSum({
+//     outer: 2,
+//     obj: {
+//       inner: 2,
+//       otherObj: {
+//         superInner: 2,
+//         notANumber: true,
+//         alsoNotANumber: 'yup',
+//       },
+//     },
+//   })
+// );
 
 //?Write a recursive function called capitalizeWords. Given an array of words, return a new array containing each word capitalized.
 
