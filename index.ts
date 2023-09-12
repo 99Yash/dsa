@@ -1,176 +1,68 @@
-// Write a function called minSubArrayLen which accepts two parameters - an array of positive integers and a positive integer.
+//? Write a function called binarySearch which accepts a sorted array and a value and returns the index at which the value exists. Otherwise, return -1.
 
-// This function should return the minimal length of a contiguous subarray of which the sum is greater than or equal to the integer passed to the function. If there isn't one, return 0 instead.
+// This algorithm should be more efficient than linearSearch - you can read how to implement it here - https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search and here - https://www.topcoder.com/community/data-science/data-science-tutorials/binary-search/
+
 // Examples:
 
-// minSubArrayLen([2,3,1,2,4,3], 7) // 2 -> because [4,3] is the smallest subarray
-// minSubArrayLen([2,1,6,5,4], 9) // 2 -> because [5,4] is the smallest subarray
-// minSubArrayLen([3,1,7,11,2,9,8,21,62,33,19], 52) // 1 -> because [62] is greater than 52
-// minSubArrayLen([1,4,16,22,5,7,8,9,10],39) // 3
-// minSubArrayLen([1,4,16,22,5,7,8,9,10],55) // 5
-// minSubArrayLen([4, 3, 3, 8, 1, 2, 3], 11) // 2
-// minSubArrayLen([1,4,16,22,5,7,8,9,10],95) // 0
+//     binarySearch([1,2,3,4,5],2) // 1
+//     binarySearch([1,2,3,4,5],3) // 2
+//     binarySearch([1,2,3,4,5],5) // 4
+//     binarySearch([1,2,3,4,5],6) // -1
+//     binarySearch([
+//       5, 6, 10, 13, 14, 18, 30, 34, 35, 37,
+//       40, 44, 64, 79, 84, 86, 95, 96, 98, 99
+//     ], 10) // 2
+//     binarySearch([
+//       5, 6, 10, 13, 14, 18, 30, 34, 35, 37,
+//       40, 44, 64, 79, 84, 86, 95, 96, 98, 99
+//     ], 95) // 16
+//     binarySearch([
+//       5, 6, 10, 13, 14, 18, 30, 34, 35, 37,
+//       40, 44, 64, 79, 84, 86, 95, 96, 98, 99
+//     ], 100) // -1
 
-// Time Complexity - O(n)
+// function binarySearch(arr: Array<number>, val: number) {
+//   let start = 0;
+//   let end = arr.length - 1;
+//   let middle = Math.floor((start + end) / 2);
 
-// Space Complexity - O(1)
-
-// function minSubArrayLen(arr: Array<number>, num: number) {}
-
-// function reverse(str: string): string {
-//   if (str.length === 0) return '';
-//   let rev = str.at(str.length - 1) ?? '';
-//   rev += reverse(str.slice(0, str.length - 1));
-//   str = str.slice(0, -1);
-//   return rev;
-// }
-
-// console.log(reverse('abcdefghijklmnopqurstuvwxyz'));
-
-// function isPalindrome(str: string): boolean {
-//   if (str.length === 0) return true;
-//   if (str.length === 1) return true;
-
-//   if (str[0] != str[str.length - 1]) {
-//     return false;
+//   while (arr[middle] !== val && start <= end) {
+//     if (val < arr[middle]) end = middle - 1;
+//     else start = middle + 1;
+//     //? set new Middle for modified array
+//     middle = Math.floor((start + end) / 2);
 //   }
-//   str = str.slice(0, 1);
-//   str = str.slice(0, -1);
-//   return isPalindrome(str);
+//   return arr[middle] === val ? middle : -1;
 // }
 
-// console.log(isPalindrome('aaa'));
-
-// type Callback = (arg: number) => boolean;
-
-// function someRecursive(arr: Array<number>, cb: Callback): boolean {
-//   if (arr.length === 0) return false;
-//   if (cb(arr[0]) === true) {
-//     return true;
-//   }
-//   arr.shift();
-//   return someRecursive(arr, cb);
-// }
-// const isEven = (num: number) => num % 2 === 0;
-
-// const numbers = [1, 2, 3, 4, 5, 6];
-
-// const result = someRecursive(numbers, isEven);
-// console.log(result);
-
-//? first element : if its a number, great. else see the first element of the array there.
-// type NestedArr = number | NestedArr[];
-
-// let returnedArr: Array<number> = [];
-// function flatten(superArr: NestedArr[]): Array<number> | undefined {
-//   if (superArr.length === 0) return [];
-//   let duplicateArr: NestedArr | undefined;
-//   if (typeof superArr[0] === 'object') {
-//     // console.log('s1', superArr);
-//     duplicateArr = superArr[0];
-//     console.log('s', superArr);
-//     flatten(duplicateArr);
-//   } else if (typeof superArr[0] === 'number') {
-//     returnedArr.push(superArr[0]);
-//     duplicateArr = superArr.shift();
-//     console.log('sss', duplicateArr);
-//     console.log('r', returnedArr);
-//     flatten(superArr);
-//   }
-//   // superArr.shift();
-//   return returnedArr;
-// }
-
-//! TRY AGAIN
-// //@ts-ignore
-// function flatten(oldArr: NestedArr[]) {
-//   let newArr: Array<number> = [];
-//   for (var i = 0; i < oldArr.length; i++) {
-//     //@ts-ignore
-//     if (Array.isArray(oldArr[i])) {
-//       //@ts-ignore
-//       newArr = newArr.concat(flatten(oldArr[i]));
-//     } else {
-//       //@ts-ignore
-//       newArr.push(oldArr[i]);
-//     }
-//   }
-//   return newArr;
-// }
-
-// console.log(flatten([[[[1], [[[2]]], [[[[[[[3]]]]]]]]]]));
-// // console.log(flatten([1, 2, 3]));
-
-// let newArr: string[] = [];
-// function capitalizeFirst(arr: Array<string>): Array<string> {
-//   if (arr.length === 0) return arr;
-//   else {
-//     newArr.push(arr[0][0].toUpperCase() + arr[0].substring(1));
-//     arr.shift();
-//     capitalizeFirst(arr);
-//   }
-//   return newArr;
-// }
-
-// console.log(capitalizeFirst(['adasd', 'saas']));
-
-//?Write a recursive function called nestedEvenSum. Return the sum of all even numbers in an object which may contain nested objects.
-//! TA doesnt work in TS
-// let sum = 0;
-// function nestedEvenSum(obj: Object): number {
-//   if (Object.entries(obj).length === 0) return 0;
-//   else {
-//     for (let key in obj) {
-//       if (typeof obj[key] === 'object') {
-//         sum += nestedEvenSum(obj[key]);
-//       } else if (typeof obj[key] === 'number' && obj[key] % 2 === 0) {
-//         sum += obj[key];
-//       }
-//     }
-//     return sum;
-//   }
-// }
-
+// console.log(binarySearch([1, 2, 3, 4, 5], -2)); // 1
+// console.log(binarySearch([1, 2, 3, 4, 5], 3)); // 2
+// console.log(binarySearch([1, 2, 3, 4, 5], 5)); // 4
+// console.log(binarySearch([1, 2, 3, 4, 5], 6)); // -1
 // console.log(
-//   nestedEvenSum({
-//     outer: 2,
-//     obj: {
-//       inner: 2,
-//       otherObj: {
-//         superInner: 2,
-//         notANumber: true,
-//         alsoNotANumber: 'yup',
-//       },
-//     },
-//   })
-// );
+//   binarySearch(
+//     [
+//       5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98,
+//       99,
+//     ],
+//     10
+//   )
+// ); // 2
 
-//?Write a recursive function called capitalizeWords. Given an array of words, return a new array containing each word capitalized.
-
-// let newArr: string[] = [];
-// function capitalizeWords(arr: string[]) {
-//   if (arr.length === 0) return '';
-//   else {
-//     newArr.push(arr[0].toUpperCase());
-//     arr.shift();
-//     console.log('ae', arr);
-//     capitalizeWords(arr);
-//   }
-//   return newArr;
-// }
-
-// console.log(capitalizeWords(['i', 'am', 'learning', 'recursion']));
-
-//? Write a function called stringifyNumbers which takes in an object and finds all of the values which are numbers and converts them to strings. Recursion would be a great way to solve this!
-
-// function stringifyNumbers(obj: Object) {}
-function capitalizeWords(array: string[]): string[] {
-  if (array.length === 1) {
-    return [array[0].toUpperCase()];
+function searchString(long: string, short: string) {
+  if (long.length < short.length) return -1;
+  let count = 0;
+  for (let i = 0; i < long.length; i++) {
+    for (let j = 0; j < short.length; j++) {
+      console.log(short[j], long[i + j]);
+      if (short[j] !== long[i + j]) {
+        console.log('break');
+        break;
+      }
+      if (j === short.length - 1) count++;
+    }
   }
-  let res = capitalizeWords(array.slice(0, -1));
-  res.push(array.slice(array.length - 1)[0].toUpperCase());
-  return res;
+  return count;
 }
 
-console.log(capitalizeWords(['qweqw', 'qweqwea']));
+console.log(searchString('lolrie loled', 'lol'));
