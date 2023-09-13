@@ -1,68 +1,28 @@
-//? Write a function called binarySearch which accepts a sorted array and a value and returns the index at which the value exists. Otherwise, return -1.
+//? JS Built in Sort method
 
-// This algorithm should be more efficient than linearSearch - you can read how to implement it here - https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search and here - https://www.topcoder.com/community/data-science/data-science-tutorials/binary-search/
+// console.log([6, 4, 15, 10].sort());
 
-// Examples:
-
-//     binarySearch([1,2,3,4,5],2) // 1
-//     binarySearch([1,2,3,4,5],3) // 2
-//     binarySearch([1,2,3,4,5],5) // 4
-//     binarySearch([1,2,3,4,5],6) // -1
-//     binarySearch([
-//       5, 6, 10, 13, 14, 18, 30, 34, 35, 37,
-//       40, 44, 64, 79, 84, 86, 95, 96, 98, 99
-//     ], 10) // 2
-//     binarySearch([
-//       5, 6, 10, 13, 14, 18, 30, 34, 35, 37,
-//       40, 44, 64, 79, 84, 86, 95, 96, 98, 99
-//     ], 95) // 16
-//     binarySearch([
-//       5, 6, 10, 13, 14, 18, 30, 34, 35, 37,
-//       40, 44, 64, 79, 84, 86, 95, 96, 98, 99
-//     ], 100) // -1
-
-// function binarySearch(arr: Array<number>, val: number) {
-//   let start = 0;
-//   let end = arr.length - 1;
-//   let middle = Math.floor((start + end) / 2);
-
-//   while (arr[middle] !== val && start <= end) {
-//     if (val < arr[middle]) end = middle - 1;
-//     else start = middle + 1;
-//     //? set new Middle for modified array
-//     middle = Math.floor((start + end) / 2);
-//   }
-//   return arr[middle] === val ? middle : -1;
+// function numberCompare(num1: number, num2: number) {
+//   return num1 - num2;
 // }
 
-// console.log(binarySearch([1, 2, 3, 4, 5], -2)); // 1
-// console.log(binarySearch([1, 2, 3, 4, 5], 3)); // 2
-// console.log(binarySearch([1, 2, 3, 4, 5], 5)); // 4
-// console.log(binarySearch([1, 2, 3, 4, 5], 6)); // -1
-// console.log(
-//   binarySearch(
-//     [
-//       5, 6, 10, 13, 14, 18, 30, 34, 35, 37, 40, 44, 64, 79, 84, 86, 95, 96, 98,
-//       99,
-//     ],
-//     10
-//   )
-// ); // 2
+// console.log([6, 4, 15, 10].sort(numberCompare));
 
-function searchString(long: string, short: string) {
-  if (long.length < short.length) return -1;
-  let count = 0;
-  for (let i = 0; i < long.length; i++) {
-    for (let j = 0; j < short.length; j++) {
-      console.log(short[j], long[i + j]);
-      if (short[j] !== long[i + j]) {
-        console.log('break');
-        break;
+//? Bubble Sort. As you loop, compare the next one, if larger: swap. If not, move on. Repeat until no swaps are made.
+
+function bubbleSort(arr: number[]) {
+  let noSwaps: boolean = true;
+  for (let i = arr.length; i > 0; i--) {
+    for (let j = 0; j < i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        //? swap
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        noSwaps = false;
       }
-      if (j === short.length - 1) count++;
     }
+    if (noSwaps) break;
   }
-  return count;
+  return arr;
 }
 
-console.log(searchString('lolrie loled', 'lol'));
+console.log(bubbleSort([223, 435, 64, 123, 23, 424, 641, 999, 888]));
